@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我们的一周年</title>
+<style>
+/* ── Reset & Base ─────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d0d0d;
+  --surface: #1a1a1a;
+  --text: #e0d5c1;
+  --text-dim: #8a8070;
+  --accent: #d4a574;
+  --accent-glow: #e8c9a0;
+  --overlay: rgba(0,0,0,0.92);
+  --radius: 12px;
+  --max-w: 1400px;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", "STSong", Georgia, serif;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+body {
+  background: radial-gradient(ellipse at 50% 0%, #1a1510 0%, var(--bg) 70%);
+  min-height: 100vh;
+}
+
+/* ── Hero / Cover ─────────────────────────── */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 600px; height: 600px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(212,165,116,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-date {
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  animation: fadeUp 1.5s ease-out;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  max-width: 500px;
+  margin-bottom: 3rem;
+  animation: fadeUp 1.5s ease-out 0.3s both;
+}
+
+/* Countdown */
+.countdown {
+  display: flex;
+  gap: 1.5rem;
+  animation: fadeUp 1.5s ease-out 0.6s both;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+}
+
+.countdown-num {
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--accent-glow);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  margin-top: 0.3rem;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  animation: bounce 2s infinite;
+  cursor: pointer;
+}
+
+/* ── Section Headers ──────────────────────── */
+.section-header {
+  text-align: center;
+  padding: 5rem 2rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.section-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+/* ── Masonry Grid ─────────────────────────── */
+.gallery {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+  columns: 4;
+  column-gap: 1rem;
+}
+
+@media (max-width: 1200px) { .gallery { columns: 3; } }
+@media (max-width: 800px)  { .gallery { columns: 2; } }
+@media (max-width: 500px)  { .gallery { columns: 1; } }
+
+.photo-card {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photo-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.photo-card img {
+  width: 100%;
+  display: block;
+  transition: opacity 0.4s ease;
+}
+
+.photo-card img.loading {
+  opacity: 0;
+}
+
+.photo-card img.loaded {
+  opacity: 1;
+}
+
+.photo-card .date-tag {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  background: rgba(0,0,0,0.6);
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.photo-card:hover .date-tag {
+  opacity: 1;
+}
+
+/* ── Lightbox ─────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox img {
+  max-width: 92vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 4px 60px rgba(0,0,0,0.7);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 10;
+}
+
+.lightbox-close:hover { color: var(--text); }
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-dim);
+  font-size: 1.5rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255,255,255,0.12);
+  color: var(--text);
+}
+
+.lightbox-prev { left: 1.5rem; }
+.lightbox-next { right: 1.5rem; }
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+/* ── Footer ────────────────────────────────── */
+.footer {
+  text-align: center;
+  padding: 4rem 2rem 3rem;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.footer-heart {
+  color: var(--accent);
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* ── Animations ────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(8px); }
+}
+
+/* ── Lazy reveal ──────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-date">2025.06.20 — 2026.06.20</div>
+  <h1 class="hero-title">我们的一周年</h1>
+  <p class="hero-subtitle">从夏天开始的故事，走过城市、山野与海，每一天都是最好的章节。</p>
+
+  <div class="countdown" id="countdown">
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-days">00</span>
+      <span class="countdown-label">天</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-hours">00</span>
+      <span class="countdown-label">时</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-mins">00</span>
+      <span class="countdown-label">分</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-secs">00</span>
+      <span class="countdown-label">秒</span>
+    </div>
+  </div>
+
+  <div class="hero-scroll" onclick="document.getElementById('start').scrollIntoView({behavior:'smooth'})">
+    往下看我们的故事 ↓
+  </div>
+</section>
+
+<!-- ═══════════ GALLERY ═══════════ -->
+<div id="start"></div>
+<div id="gallery-container"></div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<section class="footer">
+  <span class="footer-heart">♡</span>
+  <p>一年很短，未来很长。<br>Happy First Anniversary</p>
+</section>
+
+<!-- ═══════════ LIGHTBOX ═══════════ -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lb-close">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lb-prev">&lsaquo;</button>
+  <button class="lightbox-nav lightbox-next" id="lb-next">&rsaquo;</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lightbox-counter" id="lb-counter"></div>
+</div>
+
+<script src="photos.js"></script>
+<script>
+/* ═══════════ COUNTDOWN ═══════════ */
+const ANNIVERSARY = new Date('2026-06-20T00:00:00+08:00');
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = ANNIVERSARY - now;
+
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '🎉';
+    document.getElementById('cd-hours').textContent = '🎉';
+    document.getElementById('cd-mins').textContent = '一';
+    document.getElementById('cd-secs').textContent = '年';
+    return;
+  }
+
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+  document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+  document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* ═══════════ BUILD GALLERY ═══════════ */
+const container = document.getElementById('gallery-container');
+
+photoSections.forEach(section => {
+  // Section header
+  const header = document.createElement('div');
+  header.className = 'section-header reveal';
+  header.innerHTML = `
+    <div class="section-icon">${section.icon}</div>
+    <h2 class="section-title">${section.title}</h2>
+    <p class="section-subtitle">${section.subtitle}</p>
+  `;
+  container.appendChild(header);
+
+  // Gallery grid
+  const gallery = document.createElement('div');
+  gallery.className = 'gallery';
+
+  section.photos.forEach(photo => {
+    const card = document.createElement('div');
+    card.className = 'photo-card reveal';
+
+    const img = document.createElement('img');
+    img.src = photo.src;
+    img.setAttribute('data-full', photo.full);
+    img.setAttribute('data-index', section.photos.indexOf(photo));
+    img.setAttribute('data-section', section.id);
+    img.alt = photo.date;
+    img.loading = 'lazy';
+    img.className = 'loading';
+
+    img.onload = () => { img.classList.remove('loading'); img.classList.add('loaded'); };
+    img.onerror = () => { img.classList.remove('loading'); img.classList.add('loaded'); };
+    // If already cached
+    if (img.complete) { img.classList.remove('loading'); img.classList.add('loaded'); }
+
+    img.addEventListener('click', () => openLightbox(section.id, section.photos.indexOf(photo)));
+
+    const dateTag = document.createElement('span');
+    dateTag.className = 'date-tag';
+    dateTag.textContent = photo.date.replace('2025:', '').replace('2026:', '').replace(':', '-');
+    // Simplify: "07-19", "08-11" etc
+    const m = photo.date.match(/(\d{2}):(\d{2})$/);
+    if (m) dateTag.textContent = m[1] + '/' + m[2];
+
+    card.appendChild(img);
+    card.appendChild(dateTag);
+    gallery.appendChild(card);
+  });
+
+  container.appendChild(gallery);
+});
+
+/* ═══════════ SCROLL REVEAL ═══════════ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+// Also observe dynamically added reveals
+const mutationObs = new MutationObserver(() => {
+  document.querySelectorAll('.reveal:not([data-observed])').forEach(el => {
+    el.setAttribute('data-observed', '1');
+    revealObserver.observe(el);
+  });
+});
+mutationObs.observe(container, { childList: true, subtree: true });
+
+/* ═══════════ LIGHTBOX ═══════════ */
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+const lbCounter = document.getElementById('lb-counter');
+let currentSection = null;
+let currentIndex = 0;
+let currentPhotos = [];
+
+function openLightbox(sectionId, index) {
+  const section = photoSections.find(s => s.id === sectionId);
+  if (!section) return;
+
+  currentSection = section;
+  currentIndex = index;
+  currentPhotos = section.photos;
+
+  showPhoto();
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function showPhoto() {
+  const photo = currentPhotos[currentIndex];
+  lbImg.src = photo.full;
+  lbCounter.textContent = `${currentIndex + 1} / ${currentPhotos.length}`;
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function prevPhoto() {
+  currentIndex = (currentIndex - 1 + currentPhotos.length) % currentPhotos.length;
+  showPhoto();
+}
+
+function nextPhoto() {
+  currentIndex = (currentIndex + 1) % currentPhotos.length;
+  showPhoto();
+}
+
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-prev').addEventListener('click', prevPhoto);
+document.getElementById('lb-next').addEventListener('click', nextPhoto);
+
+// Close on background click
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) closeLightbox();
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') prevPhoto();
+  if (e.key === 'ArrowRight') nextPhoto();
+});
+</script>
+
+</body>
+</html>

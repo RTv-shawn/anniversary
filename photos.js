@@ -14,86 +14,6 @@ const photoSections = [
         wide: false
       },
       {
-        src: "photos/thumb/DSCF2088.JPG",
-        full: "photos/full/DSCF2088.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:19 14:23:04",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2089.JPG",
-        full: "photos/full/DSCF2089.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:19 14:23:24",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2091.JPG",
-        full: "photos/full/DSCF2091.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:19 15:36:05",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2092.JPG",
-        full: "photos/full/DSCF2092.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:19 15:36:14",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2094.JPG",
-        full: "photos/full/DSCF2094.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:19 19:51:31",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2095.JPG",
-        full: "photos/full/DSCF2095.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:19 19:54:02",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2096.JPG",
-        full: "photos/full/DSCF2096.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:19 19:54:25",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2101.JPG",
-        full: "photos/full/DSCF2101.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:19 20:13:33",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2107.JPG",
-        full: "photos/full/DSCF2107.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:19 20:15:24",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2109.JPG",
-        full: "photos/full/DSCF2109.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:19 20:16:15",
-        wide: true
-      },
-      {
         src: "photos/thumb/DSCF2156.JPG",
         full: "photos/full/DSCF2156.JPG",
         width: 6240, height: 4160,
@@ -110,22 +30,6 @@ const photoSections = [
         wide: false
       },
       {
-        src: "photos/thumb/DSCF2188.JPG",
-        full: "photos/full/DSCF2188.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:26 18:05:34",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2189.JPG",
-        full: "photos/full/DSCF2189.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:26 18:05:50",
-        wide: true
-      },
-      {
         src: "photos/thumb/DSCF2210.JPG",
         full: "photos/full/DSCF2210.JPG",
         width: 6240, height: 4160,
@@ -139,22 +43,6 @@ const photoSections = [
         width: 6240, height: 4160,
         aspect: 1.504,
         date: "2025:07:26 20:24:50",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2223.JPG",
-        full: "photos/full/DSCF2223.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:26 20:48:29",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2234.JPG",
-        full: "photos/full/DSCF2234.JPG",
-        width: 1920, height: 1280,
-        aspect: 1.504,
-        date: "2025:07:26 21:09:43",
         wide: true
       },
       {
@@ -236,62 +124,6 @@ const photoSections = [
         aspect: 1.778,
         date: "2025:08:10 20:10:06",
         wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2406.JPG",
-        full: "photos/full/DSCF2406.JPG",
-        width: 1920, height: 3411,
-        aspect: 0.563,
-        date: "2025:08:11 16:10:18",
-        wide: false
-      },
-      {
-        src: "photos/thumb/DSCF2407.JPG",
-        full: "photos/full/DSCF2407.JPG",
-        width: 1920, height: 1080,
-        aspect: 1.778,
-        date: "2025:08:11 16:10:31",
-        wide: true
-      },
-      {
-        src: "photos/thumb/DSCF2412.JPG",
-        full: "photos/full/DSCF2412.JPG",
-        width: 1920, height: 3411,
-        aspect: 0.563,
-        date: "2025:08:11 17:13:21",
-        wide: false
-      },
-      {
-        src: "photos/thumb/DSCF2414.JPG",
-        full: "photos/full/DSCF2414.JPG",
-        width: 1920, height: 3411,
-        aspect: 0.563,
-        date: "2025:08:11 17:14:38",
-        wide: false
-      },
-      {
-        src: "photos/thumb/DSCF2416.JPG",
-        full: "photos/full/DSCF2416.JPG",
-        width: 1920, height: 3411,
-        aspect: 0.563,
-        date: "2025:08:11 17:14:59",
-        wide: false
-      },
-      {
-        src: "photos/thumb/DSCF2418.JPG",
-        full: "photos/full/DSCF2418.JPG",
-        width: 1920, height: 3411,
-        aspect: 0.563,
-        date: "2025:08:11 17:16:39",
-        wide: false
-      },
-      {
-        src: "photos/thumb/DSCF2425.JPG",
-        full: "photos/full/DSCF2425.JPG",
-        width: 1920, height: 3411,
-        aspect: 0.563,
-        date: "2025:08:11 17:23:10",
-        wide: false
       },
       {
         src: "photos/thumb/DSCF2445.JPG",
@@ -406,14 +238,6 @@ const photoSections = [
         wide: true
       },
       {
-        src: "photos/thumb/DSCF2740.JPG",
-        full: "photos/full/DSCF2740.JPG",
-        width: 1920, height: 1080,
-        aspect: 1.778,
-        date: "2025:10:04 14:59:19",
-        wide: true
-      },
-      {
         src: "photos/thumb/DSCF2763.JPG",
         full: "photos/full/DSCF2763.JPG",
         width: 6240, height: 3512,
@@ -478,14 +302,6 @@ const photoSections = [
         wide: true
       },
       {
-        src: "photos/thumb/DSCF2895.JPG",
-        full: "photos/full/DSCF2895.JPG",
-        width: 1920, height: 1080,
-        aspect: 1.778,
-        date: "2025:10:06 17:12:22",
-        wide: true
-      },
-      {
         src: "photos/thumb/DSCF2910.jpg",
         full: "photos/full/DSCF2910.jpg",
         width: 2834, height: 5037,
@@ -533,14 +349,6 @@ const photoSections = [
     subtitle: "只是一场烟火散落的尘埃",
     icon: "🎆",
     photos: [
-      {
-        src: "photos/thumb/DSCF2969.JPG",
-        full: "photos/full/DSCF2969.JPG",
-        width: 1920, height: 2880,
-        aspect: 0.667,
-        date: "2026:01:09 19:46:08",
-        wide: false
-      },
       {
         src: "photos/thumb/DSCF2973.JPG",
         full: "photos/full/DSCF2973.JPG",
